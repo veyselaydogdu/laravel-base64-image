@@ -23,7 +23,7 @@ A powerful Laravel package for handling base64 encoded images with automatic res
 ## Requirements
 
 - PHP 8.0 or higher
-- Laravel 9.0, 10.0, or 11.0
+- Laravel 9.0, 10.0, 11.0, or 12.0
 - Intervention Image 3.0
 
 ## Installation
