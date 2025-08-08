@@ -1,0 +1,64 @@
+{
+  "name": "veyselaydogdu/laravel-base64-image",
+  "description": "A powerful Laravel package for handling base64 encoded images with automatic resizing, validation, and storage management",
+  "type": "library",
+  "keywords": [
+    "laravel",
+    "base64",
+    "image",
+    "upload",
+    "resize",
+    "intervention",
+    "storage"
+  ],
+  "homepage": "https://github.com/veyselaydogdu/laravel-base64-image",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Veysel Aydoğdu",
+      "email": "weysel.aydogdu@gmail.com",
+      "homepage": "https://veyselaydogdu.com.tr",
+      "role": "Developer"
+    }
+  ],
+  "require": {
+    "php": "^8.0",
+    "illuminate/support": "^9.0|^10.0|^11.0",
+    "illuminate/console": "^9.0|^10.0|^11.0",
+    "intervention/image": "^3.0"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "^10.0",
+    "orchestra/testbench": "^8.0|^9.0",
+    "mockery/mockery": "^1.5"
+  },
+  "autoload": {
+    "psr-4": {
+      "VeyselAydogdu\\LaravelBase64Image\\": "src/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "VeyselAydogdu\\LaravelBase64Image\\Tests\\": "tests/"
+    }
+  },
+  "scripts": {
+    "test": "vendor/bin/phpunit",
+    "test-coverage": "vendor/bin/phpunit --coverage-html coverage"
+  },
+  "config": {
+    "sort-packages": true
+  },
+  "extra": {
+    "laravel": {
+      "providers": [
+        "VeyselAydogdu\\LaravelBase64Image\\Base64ImageServiceProvider"
+      ],
+      "aliases": {
+        "Base64Image": "VeyselAydogdu\\LaravelBase64Image\\Facades\\Base64Image"
+      }
+    }
+  },
+  "minimum-stability": "dev",
+  "prefer-stable": true
+}
