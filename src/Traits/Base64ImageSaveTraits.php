@@ -6,6 +6,10 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Intervention\Image\ImageManager;
 use Intervention\Image\Drivers\Gd\Driver;
+use Intervention\Image\Encoders\PngEncoder;
+use Intervention\Image\Encoders\JpegEncoder;
+use Intervention\Image\Encoders\WebpEncoder;
+use Intervention\Image\Encoders\GifEncoder;
 use Exception;
 
 trait Base64ImageSaveTraits
@@ -96,7 +100,8 @@ trait Base64ImageSaveTraits
             }
 
             // Encode with quality
-            $encodedImage = $image->encode($extension, $quality);
+            $encoder = $this->getEncoder($extension, $quality);
+            $encodedImage = $image->encode($encoder);
 
             // Clean up temp file
             unlink($tempFile);
@@ -138,7 +143,7 @@ trait Base64ImageSaveTraits
      * @param string|null $disk
      * @return bool
      */
-    public function deleteImage(string $path, string $disk = null): bool
+    public function deleteImage(string $path, ?string $disk = null): bool
     {
         $disk = $disk ?? config('base64-image.disk');
         
@@ -193,5 +198,29 @@ trait Base64ImageSaveTraits
 
         // If we can't generate a unique filename, append timestamp
         return Str::random($length - 10) . '_' . time() . '.' . $extension;
+    }
+
+    /**
+     * Get the appropriate encoder for the image format
+     *
+     * @param string $extension
+     * @param int $quality
+     * @return mixed
+     */
+    private function getEncoder(string $extension, int $quality)
+    {
+        switch (strtolower($extension)) {
+            case 'jpg':
+            case 'jpeg':
+                return new JpegEncoder(quality: $quality);
+            case 'png':
+                return new PngEncoder();
+            case 'webp':
+                return new WebpEncoder(quality: $quality);
+            case 'gif':
+                return new GifEncoder();
+            default:
+                return new JpegEncoder(quality: $quality);
+        }
     }
 }
